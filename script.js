@@ -1,33 +1,36 @@
-document.querySelector('#push').onclick = function(){
-    if(document.querySelector('#newtask input').value.length == 0){
-        alert("Please Enter a Task")
-    }
-    else{
-        document.querySelector('#tasks').innerHTML += `
-            <div class="task">
-                <span id="taskname">
-                    ${document.querySelector('#newtask input').value}
-                </span>
-                <button class="delete">
-                    
-                </button>
-            </div>
-        `;
-
-        let current_tasks = document.querySelectorAll(".delete");
-        for(let i=0; i<current_tasks.length; i++){
-            current_tasks[i].onclick = function(){
-                this.parentNode.remove();
-            }
+function addmore() {
+    document.getElementById('error').innerHTML=" ";
+    let name=document.getElementById('name').value;
+    if(name==''){
+        document.getElementById('error').innerHTML="Please Enter Value";
+        
+    }else{
+        let box= document.getElementById('box');
+        
+        let li=document.createElement('li');
+        li.textContent=name;
+        
+        let a=document.createElement('a')
+        a.textContent="[Clear]";
+        a.href="javascript:void(0)";
+        // a.className="remove";
+        li.appendChild(a);
+        
+        let pos=box.firstElementChild;
+        if(pos==null){
+            box.appendChild(li);
+            }else{
+            box.insertBefore(li,pos);
         }
-
-        let tasks = document.querySelectorAll(".task");
-        for(let i=0; i<tasks.length; i++){
-            tasks[i].onclick = function(){
-                this.classList.toggle('completed');
-            }
-        }
-
-        document.querySelector("#newtask input").value = "";
+        
     }
+    document.getElementById('name').value=" ";
 }
+
+let btn=document.querySelector('ul');
+btn.addEventListener('click',function(e){
+    let box= document.getElementById('box');
+    let li=e.target.parentNode;
+    box.removeChild(li);
+}) 
+    
